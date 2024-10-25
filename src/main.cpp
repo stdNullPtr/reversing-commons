@@ -1,6 +1,6 @@
 #include "window.hpp"
 #include "xor.hpp"
-#include <spdlog/spdlog.h>
+#include "spdlog/spdlog.h"
 
 using namespace commons;
 
