@@ -7,7 +7,7 @@
 #include "Windows.h"
 #include "spdlog/spdlog.h"
 
-namespace commons::lookup
+namespace commons::window
 {
 	inline std::optional<std::string> getFocusedWindowTitle()
 	{
@@ -33,11 +33,13 @@ namespace commons::lookup
 
 	inline bool isWindowInFocus(const std::string& windowName)
 	{
-		if (!getFocusedWindowTitle().has_value())
+		auto focusedWindowTitle = getFocusedWindowTitle();
+
+		if (!focusedWindowTitle.has_value())
 		{
 			spdlog::error("Focused window title is empty.");
 			return false;
 		}
-		return getFocusedWindowTitle().value() == windowName;
+		return focusedWindowTitle.value() == windowName;
 	}
 }

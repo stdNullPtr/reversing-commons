@@ -147,8 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\console.hpp" />
-    <ClInclude Include="src\lookup.hpp" />
-    <ClInclude Include="src\spdlog\spdlog.h" />
+    <ClInclude Include="src\window.hpp" />
     <ClInclude Include="src\xor.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
