@@ -1,23 +1,23 @@
 #include "window.hpp"
 #include "xor.hpp"
-#include "spdlog/spdlog.h"
+#include <print>
 
 using namespace commons;
 
 int main()
 {
-	spdlog::info(XOR("START"));
+	std::print(XOR("START\n\n"));
 
 	const auto focusedWindow{window::getFocusedWindowTitle()};
-	spdlog::info(XOR("Focused window: {}"), focusedWindow.value_or("NO VALUE?"));
+	std::print(XOR("Focused window: {}\n"), focusedWindow.value_or("NO VALUE?"));
 
 	if (focusedWindow.has_value())
 	{
 		const auto isWindowInFocus{window::isWindowInFocus(focusedWindow.value())};
-		spdlog::info(XOR("isWindowInFocus: {}"), isWindowInFocus ? "yes" : "no");
+		std::print(XOR("isWindowInFocus: {}\n"), isWindowInFocus ? "yes" : "no");
 	}
 
-	spdlog::info(XOR("END"));
+	std::print(XOR("END\n\n"));
 
 	return 0;
 }

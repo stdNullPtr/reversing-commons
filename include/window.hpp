@@ -1,11 +1,11 @@
 #pragma once
 #define WIN32_LEAN_AND_MEAN
 #include <optional>
+#include <print>
 #include <string>
 #include <vector>
 
 #include "Windows.h"
-#include "spdlog/spdlog.h"
 
 namespace commons::window
 {
@@ -14,14 +14,14 @@ namespace commons::window
 		const HWND fgWindowHandle{GetForegroundWindow()};
 		if (fgWindowHandle == nullptr)
 		{
-			spdlog::error("Can't get focused window handle, or there is no focused window.");
+			std::print("Can't get focused window handle, or there is no focused window.\n");
 			return std::nullopt;
 		}
 
 		const int titleLength{GetWindowTextLength(fgWindowHandle)};
 		if (titleLength == 0)
 		{
-			spdlog::error("Window title is 0 characters.");
+			std::print("Window title is 0 characters.\n");
 			return std::nullopt;
 		}
 
@@ -37,7 +37,7 @@ namespace commons::window
 
 		if (!focusedWindowTitle.has_value())
 		{
-			spdlog::error("Focused window title is empty.");
+			std::print("Focused window title is empty.\n");
 			return false;
 		}
 		return focusedWindowTitle.value() == windowName;
