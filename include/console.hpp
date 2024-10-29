@@ -52,9 +52,9 @@ namespace commons::console
 
 		setCursorVisibility(false);
 
-		(void)freopen_s(reinterpret_cast<FILE**>(stdin), XOR("CONIN$"), "r", stdin);
-		(void)freopen_s(reinterpret_cast<FILE**>(stdout), XOR("CONOUT$"), "w", stdout);
-		(void)freopen_s(reinterpret_cast<FILE**>(stderr), XOR("CONOUT$"), "w", stderr);
+		(void)freopen_s(reinterpret_cast<FILE**>(stdin), XOR("CONIN$"), XOR("r"), stdin);
+		(void)freopen_s(reinterpret_cast<FILE**>(stdout), XOR("CONOUT$"), XOR("w"), stdout);
+		(void)freopen_s(reinterpret_cast<FILE**>(stderr), XOR("CONOUT$"), XOR("w"), stderr);
 
 		return true;
 	}
