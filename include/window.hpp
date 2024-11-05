@@ -31,7 +31,6 @@ namespace commons::window
 			return std::nullopt;
 		}
 
-		//TODO ew use string
 		std::vector<char> windowTitle(titleLength + 1);
 		GetWindowText(fgWindowHandle, windowTitle.data(), titleLength + 1);
 
@@ -62,7 +61,7 @@ namespace commons::window
 		while (std::chrono::steady_clock::now() - start < timeout)
 		{
 			console::clearConsole({0, 0});
-			std::println(XOR("Waiting for window '{}'..."), windowName);
+			std::println(XOR("Waiting for window '{}' (INS to abort)..."), windowName);
 
 			if (isWindowRunning(windowName))
 			{

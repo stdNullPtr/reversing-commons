@@ -1,7 +1,9 @@
 #pragma once
 #define WIN32_LEAN_AND_MEAN
+#include <optional>
 #include <Windows.h>
 #include <print>
+#include "xor.hpp"
 
 namespace commons::mem
 {
@@ -10,8 +12,9 @@ namespace commons::mem
 	{
 		T buffer;
 		SIZE_T bytesRead;
-		if (ReadProcessMemory(processHandle, reinterpret_cast<LPCVOID>(address), &buffer, sizeof(T), &bytesRead) &&
-			bytesRead == sizeof(T))
+
+		if (ReadProcessMemory(processHandle, reinterpret_cast<LPCVOID>(address), &buffer, sizeof(T), &bytesRead)
+			&& bytesRead == sizeof(T))
 		{
 			return buffer;
 		}
@@ -24,8 +27,8 @@ namespace commons::mem
 	bool write(const HANDLE& processHandle, const uintptr_t& address, const T& data)
 	{
 		SIZE_T bytesWritten;
-		if (WriteProcessMemory(processHandle, reinterpret_cast<LPVOID>(address), &data, sizeof(T), &bytesWritten) &&
-			bytesWritten == sizeof(T))
+		if (WriteProcessMemory(processHandle, reinterpret_cast<LPVOID>(address), &data, sizeof(T), &bytesWritten)
+			&& bytesWritten == sizeof(T))
 		{
 			return true;
 		}

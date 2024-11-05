@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <optional>
+#include <print>
+#include "xor.hpp"
 
 namespace commons::process
 {
@@ -35,22 +37,22 @@ namespace commons::process
 		}
 
 		CloseHandle(snapshot);
-		return processId ? std::optional<DWORD>{processId} : std::nullopt;
+		return processId ? std::optional{processId} : std::nullopt;
 	}
 
 	inline std::optional<HANDLE> OpenProcessHandle(const std::string& processName)
 	{
-		const auto processId = GetProcessIdByName(processName);
+		const auto processId{GetProcessIdByName(processName)};
 		if (!processId)
 		{
-			std::println("Process not found: {}", processName);
+			std::println(XOR("Process not found: {}"), processName);
 			return std::nullopt;
 		}
 
-		HANDLE handle = OpenProcess(PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_QUERY_INFORMATION, FALSE, *processId);
+		HANDLE handle{OpenProcess(PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_QUERY_INFORMATION, FALSE, *processId)};
 		if (!handle)
 		{
-			std::println("Failed to open handle to process. Error: {}", GetLastError());
+			std::println(XOR("Failed to open handle to process. Error: {}"), GetLastError());
 			return std::nullopt;
 		}
 
@@ -62,7 +64,7 @@ namespace commons::process
 		const HANDLE snapshot{CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, processId)};
 		if (snapshot == INVALID_HANDLE_VALUE)
 		{
-			std::println("Failed to create module snapshot. Error: {}", GetLastError());
+			std::println(XOR("Failed to create module snapshot. Error: {}"), GetLastError());
 			return std::nullopt;
 		}
 

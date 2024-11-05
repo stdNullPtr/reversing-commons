@@ -147,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\console.hpp" />
+    <ClInclude Include="include\keyboard.hpp" />
+    <ClInclude Include="include\memory.hpp" />
+    <ClInclude Include="include\process.hpp" />
     <ClInclude Include="include\window.hpp" />
     <ClInclude Include="include\xor.hpp" />
   </ItemGroup>

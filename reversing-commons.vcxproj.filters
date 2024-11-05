@@ -29,5 +29,14 @@
     <ClInclude Include="include\xor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\keyboard.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\memory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\process.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
