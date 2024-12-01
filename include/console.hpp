@@ -6,6 +6,13 @@
 
 namespace commons::console
 {
+    namespace ansi_codes
+    {
+        constexpr auto red{ "\x1B[31m" };
+        constexpr auto light_blue{ "\x1B[36m" };
+        constexpr auto reset_color{ "\033[0m" };
+    }
+
     inline COORD getCursorPosition()
     {
         static const HANDLE hConsoleOutput{GetStdHandle(STD_OUTPUT_HANDLE)};

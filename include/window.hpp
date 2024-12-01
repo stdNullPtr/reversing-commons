@@ -61,7 +61,7 @@ namespace commons::window
         while (std::chrono::steady_clock::now() - start < timeout)
         {
             console::clearConsole({0, 0});
-            std::cout << XOR("Waiting for window '") << windowName << XOR("' (END to abort)...\n");
+            std::cout << XOR("Looking for window '") << windowName << XOR("' Press (END to abort)...\n");
 
             if (isWindowRunning(windowName))
             {
@@ -71,7 +71,7 @@ namespace commons::window
 
             if (keyboard::isKeyPressed(VK_END))
             {
-                std::cout << XOR("Exit key pressed. Aborting waiting for window '") << windowName << XOR("'.\n");
+                std::cout << XOR("Exit key pressed. Aborting looking for window '") << windowName << XOR("'.\n");
                 return false;
             }
 
