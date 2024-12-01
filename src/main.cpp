@@ -1,23 +1,23 @@
 #include "window.hpp"
 #include "xor.hpp"
-#include <print>
 
 using namespace commons;
 
 int main()
 {
-	std::println(XOR("=== START ===\n"));
+    std::cout << (XOR("=== START ===\n"));
 
-	const auto focusedWindow{window::getFocusedWindowTitle()};
-	std::println(XOR("window::getFocusedWindowTitle(): {}"), focusedWindow.value_or("NO VALUE?"));
+    const auto focusedWindow{window::getFocusedWindowTitle()};
+    std::cout << XOR("window::getFocusedWindowTitle(): ") << focusedWindow.value_or(XOR("NO VALUE?")) << '\n';
 
-	if (focusedWindow.has_value())
-	{
-		const auto isWindowInFocus{window::isWindowInFocus(focusedWindow.value())};
-		std::println(XOR("window::isWindowInFocus(focusedWindow.value()): {}"), isWindowInFocus ? "yes" : "no");
-	}
+    if (focusedWindow.has_value())
+    {
+        const auto isWindowInFocus{window::isWindowInFocus(focusedWindow.value())};
+        std::cout << XOR("window::isWindowInFocus(focusedWindow.value()): ") << (isWindowInFocus ? XOR("yes") : XOR("no"));
+    }
 
-	std::println(XOR("\n=== END ==="));
+    std::cout << XOR("\n=== END ===\n");
+    XorCompileTime::w_printf(XOR("testtttt\n"));
 
-	return 0;
+    return 0;
 }
