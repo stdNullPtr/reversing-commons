@@ -55,7 +55,8 @@ namespace commons::window
         return FindWindow(nullptr, windowName.c_str()) != nullptr;
     }
 
-    inline bool waitForWindow(const std::wstring& windowName, const std::chrono::milliseconds& timeout = std::chrono::milliseconds::max())
+    //TODO why ::max() not working??
+    inline bool waitForWindow(const std::wstring& windowName, const std::chrono::milliseconds& timeout = 999999h)
     {
         const auto start{std::chrono::steady_clock::now()};
 
