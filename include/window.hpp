@@ -1,5 +1,6 @@
 #pragma once
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 #include "Windows.h"
 #include <optional>
 #include <string>
@@ -15,70 +16,70 @@ namespace commons::window
 {
     using namespace std::chrono_literals;
 
-    inline std::optional<std::string> getFocusedWindowTitle()
+    inline std::optional<std::wstring> getFocusedWindowTitle()
     {
         const HWND fgWindowHandle{GetForegroundWindow()};
         if (fgWindowHandle == nullptr)
         {
-            std::cout << XOR("Can't get focused window handle, or there is no focused window.\n");
+            std::wcout << XORW(L"Can't get focused window handle, or there is no focused window.\n");
             return std::nullopt;
         }
 
         const int titleLength{GetWindowTextLength(fgWindowHandle)};
         if (titleLength == 0)
         {
-            std::cout << XOR("Window title is 0 characters.\n");
+            std::wcout << XORW(L"Window title is 0 characters.\n");
             return std::nullopt;
         }
 
-        std::vector<char> windowTitle(titleLength + 1);
-        GetWindowText(fgWindowHandle, windowTitle.data(), titleLength + 1);
+        std::unique_ptr<wchar_t[]> buffer(new wchar_t[titleLength + 1]);
+        GetWindowText(fgWindowHandle, buffer.get(), titleLength + 1);
 
-        return std::string(windowTitle.data());
+        return std::wstring(buffer.get());
     }
 
-    inline bool isWindowInFocus(const std::string& windowName)
+    inline bool isWindowInFocus(const std::wstring& windowName)
     {
         const auto focusedWindowTitle{getFocusedWindowTitle()};
 
         if (!focusedWindowTitle.has_value())
         {
-            std::cout << XOR("Focused window title is empty.\n");
+            std::wcout << XORW(L"Focused window title is empty.\n");
             return false;
         }
         return focusedWindowTitle.value() == windowName;
     }
 
-    inline bool isWindowRunning(const std::string& windowName)
+    inline bool isWindowRunning(const std::wstring& windowName)
     {
         return FindWindow(nullptr, windowName.c_str()) != nullptr;
     }
 
-    inline bool waitForWindow(const std::string& windowName, const std::chrono::milliseconds& timeout)
+    inline bool waitForWindow(const std::wstring& windowName, const std::chrono::milliseconds& timeout = std::chrono::milliseconds::max())
     {
         const auto start{std::chrono::steady_clock::now()};
 
         while (std::chrono::steady_clock::now() - start < timeout)
         {
             console::clearConsole({0, 0});
-            std::cout << XOR("Looking for window '") << windowName << XOR("' Press (END to abort)...\n");
+            std::wcout << XORW(L"Looking for window '") << windowName << XORW(L"' Press (END to abort)...\n");
 
             if (isWindowRunning(windowName))
             {
-                std::cout << XOR("Window '") << windowName << XOR("' was found.\n");
+                std::wcout << XORW(L"Window '") << windowName << XORW(L"' was found.\n");
                 return true;
             }
 
             if (keyboard::isKeyPressed(VK_END))
             {
-                std::cout << XOR("Exit key pressed. Aborting looking for window '") << windowName << XOR("'.\n");
+                std::wcout << XORW(L"Exit key pressed. Aborting looking for window '") << windowName << XORW(L"'.\n");
                 return false;
             }
 
-            std::this_thread::sleep_for(100ms);
+            std::this_thread::sleep_for(50ms);
         }
 
-        std::cout << XOR("Timeout reached; window '") << windowName << XOR("' was not found.\n");
+        std::wcout << XORW(L"Timeout reached; window '") << windowName << XORW(L"' was not found.\n");
         return false;
     }
 }
