@@ -41,7 +41,6 @@ namespace commons::window
     inline bool isWindowInFocus(const std::wstring& windowName)
     {
         const auto focusedWindowTitle{getFocusedWindowTitle()};
-
         if (!focusedWindowTitle.has_value())
         {
             std::wcout << XORW(L"Focused window title is empty.\n");
@@ -77,7 +76,7 @@ namespace commons::window
                 return false;
             }
 
-            std::this_thread::sleep_for(50ms);
+            std::this_thread::sleep_for(10ms);
         }
 
         std::wcout << XORW(L"Timeout reached; window '") << windowName << XORW(L"' was not found.\n");
