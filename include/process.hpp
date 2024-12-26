@@ -61,7 +61,10 @@ namespace commons::process
         return handle;
     }
 
-    inline std::optional<uintptr_t> GetModuleBaseAddress(const DWORD& processId, const std::wstring& moduleName, const int maxRetries = 10, const std::chrono::seconds retryDelay = std::chrono::seconds(5))
+    inline std::optional<uintptr_t> GetModuleBaseAddress(const DWORD& processId, const std::wstring& moduleName,
+                                                         const int maxRetries = 10,
+                                                         const std::chrono::seconds retryDelay =
+                                                             std::chrono::seconds(5))
     {
         std::wcout << XORW(L"Trying to find module: ") << moduleName << '\n';
 

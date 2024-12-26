@@ -19,7 +19,8 @@ namespace commons::mem
             return buffer;
         }
 
-        std::wcout << XORW(L"Failed to read memory at address ") << std::hex << std::uppercase << address << XORW(L". Error: ") << GetLastError() << '\n';
+        std::wcout << XORW(L"Failed to read memory at address ") << std::hex << std::uppercase << address <<
+            XORW(L". Error: ") << GetLastError() << '\n';
         return std::nullopt;
     }
 
@@ -33,7 +34,8 @@ namespace commons::mem
             return true;
         }
 
-        std::wcout << XORW(L"Failed to write memory at address") << std::hex << std::uppercase << address << XORW(L".Error: ") << GetLastError() << '\n';
+        std::wcout << XORW(L"Failed to write memory at address") << std::hex << std::uppercase << address <<
+            XORW(L".Error: ") << GetLastError() << '\n';
         return false;
     }
 }

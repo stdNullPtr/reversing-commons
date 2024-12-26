@@ -19,7 +19,9 @@ int main()
     if (focusedWindow.has_value())
     {
         const auto isWindowInFocus{window::isWindowInFocus(focusedWindow.value())};
-        std::wcout << XORW(L"window::isWindowInFocus(focusedWindow.value()): ") << (isWindowInFocus ? XORW(L"yes") : XORW(L"no"));
+        std::wcout << XORW(L"window::isWindowInFocus(focusedWindow.value()): ") << (isWindowInFocus
+            ? XORW(L"yes")
+            : XORW(L"no"));
     }
 
     std::wcout << XORW(L"\n=== END ===\n");
