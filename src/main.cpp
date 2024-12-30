@@ -5,6 +5,7 @@
 #include "logger.hpp"
 
 using namespace commons;
+using logger::LOG;
 
 int main()
 {

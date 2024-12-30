@@ -17,7 +17,7 @@ namespace commons::logger
     }
 #else
     template <typename... Args>
-    void LOG(const std::wstring& fmt, Args&&... args)
+    void LOG(const std::wstring& /*fmt*/, Args&&... /*args*/)
     {
     }
 #endif
