@@ -2,6 +2,7 @@
 #include "xor.hpp"
 #include <io.h>
 #include <fcntl.h>
+#include "logger.hpp"
 
 using namespace commons;
 
@@ -12,6 +13,9 @@ int main()
 
     std::wcout << XORW(L"=== START ===\n\n");
     std::wcout << XORW(L"=== СТАРТ ===\n\n");
+
+    LOG(XORW(L"LOG: %s\n"), XORW(L"Hello, World!"));
+    LOG(XORW(L"LOG: %s\n"), XORW(L"ЗДР, World!"));
 
     const auto focusedWindow{window::getFocusedWindowTitle()};
     std::wcout << XORW(L"window::getFocusedWindowTitle(): ") << focusedWindow.value_or(XORW(L"NO VALUE?")) << '\n';
