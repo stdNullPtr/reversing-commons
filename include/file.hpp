@@ -25,7 +25,7 @@ namespace commons::file
         }
 
         const std::streampos size = file.tellg();
-        std::vector<char> buffer(static_cast<size_t>(size));
+        std::vector<char> buffer(size);
         file.seekg(0, std::ios::beg);
         file.read(buffer.data(), size);
 
