@@ -35,8 +35,7 @@ namespace commons::console
 
         GetConsoleScreenBufferInfo(hConsoleOutput, &screen);
         FillConsoleOutputCharacterA(hConsoleOutput, ' ', screen.dwSize.X * screen.dwSize.Y, startPos, &written);
-        FillConsoleOutputAttribute(hConsoleOutput, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
-                                   screen.dwSize.X * screen.dwSize.Y, startPos, &written);
+        FillConsoleOutputAttribute(hConsoleOutput, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE, screen.dwSize.X * screen.dwSize.Y, startPos, &written);
         SetConsoleCursorPosition(hConsoleOutput, startPos);
     }
 

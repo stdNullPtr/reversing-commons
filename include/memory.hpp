@@ -13,14 +13,12 @@ namespace commons::mem
         T buffer;
         SIZE_T bytesRead;
 
-        if (ReadProcessMemory(processHandle, reinterpret_cast<LPCVOID>(address), &buffer, sizeof(T), &bytesRead)
-            && bytesRead == sizeof(T))
+        if (ReadProcessMemory(processHandle, reinterpret_cast<LPCVOID>(address), &buffer, sizeof(T), &bytesRead) && bytesRead == sizeof(T))
         {
             return buffer;
         }
 
-        std::wcout << XORW(L"Failed to read memory at address ") << std::hex << std::uppercase << address <<
-            XORW(L". Error: ") << GetLastError() << '\n';
+        std::wcout << XORW(L"Failed to read memory at address ") << std::hex << std::uppercase << address << XORW(L". Error: ") << GetLastError() << '\n';
         return std::nullopt;
     }
 
@@ -28,14 +26,12 @@ namespace commons::mem
     bool write(const HANDLE& processHandle, const uintptr_t& address, const T& data)
     {
         SIZE_T bytesWritten;
-        if (WriteProcessMemory(processHandle, reinterpret_cast<LPVOID>(address), &data, sizeof(T), &bytesWritten)
-            && bytesWritten == sizeof(T))
+        if (WriteProcessMemory(processHandle, reinterpret_cast<LPVOID>(address), &data, sizeof(T), &bytesWritten) && bytesWritten == sizeof(T))
         {
             return true;
         }
 
-        std::wcout << XORW(L"Failed to write memory at address") << std::hex << std::uppercase << address <<
-            XORW(L".Error: ") << GetLastError() << '\n';
+        std::wcout << XORW(L"Failed to write memory at address") << std::hex << std::uppercase << address << XORW(L".Error: ") << GetLastError() << '\n';
         return false;
     }
 }

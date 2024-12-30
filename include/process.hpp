@@ -7,7 +7,6 @@
 #include <string>
 #include <optional>
 #include <thread>
-
 #include "xor.hpp"
 
 namespace commons::process
