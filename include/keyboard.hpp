@@ -4,8 +4,8 @@
 
 namespace commons::keyboard
 {
-    inline bool isKeyPressed(const int virtualKey)
+    inline bool is_key_pressed(const int virtual_key)
     {
-        return (GetAsyncKeyState(virtualKey) & 0x8000) != 0;
+        return (GetAsyncKeyState(virtual_key) & 0x8000) != 0;
     }
 }

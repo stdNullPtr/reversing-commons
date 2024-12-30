@@ -2,7 +2,6 @@
 #define WIN32_LEAN_AND_MEAN
 #include "Windows.h"
 #include "xor.hpp"
-#include <string>
 
 namespace commons::console
 {
@@ -13,50 +12,50 @@ namespace commons::console
         constexpr auto reset_color{"\033[0m"};
     }
 
-    inline COORD getCursorPosition()
+    inline COORD get_cursor_position()
     {
-        static const HANDLE hConsoleOutput{GetStdHandle(STD_OUTPUT_HANDLE)};
-        CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;
-        GetConsoleScreenBufferInfo(hConsoleOutput, &screenBufferInfo);
-        return screenBufferInfo.dwCursorPosition;
+        static const HANDLE h_console_output{GetStdHandle(STD_OUTPUT_HANDLE)};
+        CONSOLE_SCREEN_BUFFER_INFO screen_buffer_info;
+        GetConsoleScreenBufferInfo(h_console_output, &screen_buffer_info);
+        return screen_buffer_info.dwCursorPosition;
     }
 
-    inline void setCursorPosition(const COORD& position)
+    inline void set_cursor_position(const COORD& position)
     {
-        static const HANDLE hConsoleOutput{GetStdHandle(STD_OUTPUT_HANDLE)};
-        SetConsoleCursorPosition(hConsoleOutput, position);
+        static const HANDLE h_console_output{GetStdHandle(STD_OUTPUT_HANDLE)};
+        SetConsoleCursorPosition(h_console_output, position);
     }
 
-    inline void clearConsole(const COORD& startPos)
+    inline void clear_console(const COORD& start_pos)
     {
-        static const HANDLE hConsoleOutput{GetStdHandle(STD_OUTPUT_HANDLE)};
+        static const HANDLE h_console_output{GetStdHandle(STD_OUTPUT_HANDLE)};
         CONSOLE_SCREEN_BUFFER_INFO screen;
         static DWORD written;
 
-        GetConsoleScreenBufferInfo(hConsoleOutput, &screen);
-        FillConsoleOutputCharacterA(hConsoleOutput, ' ', screen.dwSize.X * screen.dwSize.Y, startPos, &written);
-        FillConsoleOutputAttribute(hConsoleOutput, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE, screen.dwSize.X * screen.dwSize.Y, startPos, &written);
-        SetConsoleCursorPosition(hConsoleOutput, startPos);
+        GetConsoleScreenBufferInfo(h_console_output, &screen);
+        FillConsoleOutputCharacterA(h_console_output, ' ', screen.dwSize.X * screen.dwSize.Y, start_pos, &written);
+        FillConsoleOutputAttribute(h_console_output, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE, screen.dwSize.X * screen.dwSize.Y, start_pos, &written);
+        SetConsoleCursorPosition(h_console_output, start_pos);
     }
 
-    inline void setCursorVisibility(const bool& isVisible)
+    inline void set_cursor_visibility(const bool& is_visible)
     {
-        static const HANDLE hConsoleOutput{GetStdHandle(STD_OUTPUT_HANDLE)};
-        CONSOLE_CURSOR_INFO cursorInfo;
+        static const HANDLE h_console_output{GetStdHandle(STD_OUTPUT_HANDLE)};
+        CONSOLE_CURSOR_INFO cursor_info;
 
-        GetConsoleCursorInfo(hConsoleOutput, &cursorInfo);
-        cursorInfo.bVisible = isVisible;
-        SetConsoleCursorInfo(hConsoleOutput, &cursorInfo);
+        GetConsoleCursorInfo(h_console_output, &cursor_info);
+        cursor_info.bVisible = is_visible;
+        SetConsoleCursorInfo(h_console_output, &cursor_info);
     }
 
-    inline bool initConsole()
+    inline bool init_console()
     {
         if (!AllocConsole())
         {
             return false;
         }
 
-        setCursorVisibility(false);
+        set_cursor_visibility(false);
 
         (void)freopen_s(reinterpret_cast<FILE**>(stdin), XOR("CONIN$"), XOR("r"), stdin);
         (void)freopen_s(reinterpret_cast<FILE**>(stdout), XOR("CONOUT$"), XOR("w"), stdout);
@@ -65,15 +64,15 @@ namespace commons::console
         return true;
     }
 
-    inline void destroyConsole()
+    inline void destroy_console()
     {
-        const HWND hConsoleOutput{GetConsoleWindow()};
-        if (!hConsoleOutput)
+        const HWND h_console_output{GetConsoleWindow()};
+        if (!h_console_output)
         {
             return;
         }
 
         FreeConsole();
-        SendMessage(hConsoleOutput, WM_CLOSE, 0, 0);
+        SendMessage(h_console_output, WM_CLOSE, 0, 0);
     }
 }

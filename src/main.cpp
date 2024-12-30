@@ -5,7 +5,7 @@
 #include "logger.hpp"
 
 using namespace commons;
-using logger::LOG;
+using logger::log;
 
 int main()
 {
@@ -15,18 +15,16 @@ int main()
     std::wcout << XORW(L"=== START ===\n\n");
     std::wcout << XORW(L"=== СТАРТ ===\n\n");
 
-    LOG(XORW(L"LOG: %s\n"), XORW(L"Hello, World!"));
-    LOG(XORW(L"LOG: %s\n"), XORW(L"ЗДР, World!"));
+    log(XORW(L"LOG: %s\n"), XORW(L"Hello, World!"));
+    log(XORW(L"LOG: %s\n"), XORW(L"ЗДР, World!"));
 
-    const auto focusedWindow{window::getFocusedWindowTitle()};
-    std::wcout << XORW(L"window::getFocusedWindowTitle(): ") << focusedWindow.value_or(XORW(L"NO VALUE?")) << '\n';
+    const auto focused_window{window::get_focused_window_title()};
+    std::wcout << XORW(L"window::getFocusedWindowTitle(): ") << focused_window.value_or(XORW(L"NO VALUE?")) << '\n';
 
-    if (focusedWindow.has_value())
+    if (focused_window.has_value())
     {
-        const auto isWindowInFocus{window::isWindowInFocus(focusedWindow.value())};
-        std::wcout << XORW(L"window::isWindowInFocus(focusedWindow.value()): ") << (isWindowInFocus
-            ? XORW(L"yes")
-            : XORW(L"no"));
+        const auto is_window_in_focus{window::is_window_in_focus(focused_window.value())};
+        std::wcout << XORW(L"window::isWindowInFocus(focusedWindow.value()): ") << (is_window_in_focus? XORW(L"yes"): XORW(L"no"));
     }
 
     std::wcout << XORW(L"\n=== END ===\n");

@@ -8,12 +8,12 @@
 namespace commons::mem
 {
     template <typename T>
-    std::optional<T> read(const HANDLE& processHandle, const uintptr_t& address)
+    std::optional<T> read(const HANDLE& process_handle, const uintptr_t& address)
     {
         T buffer;
-        SIZE_T bytesRead;
+        SIZE_T bytes_read;
 
-        if (ReadProcessMemory(processHandle, reinterpret_cast<LPCVOID>(address), &buffer, sizeof(T), &bytesRead) && bytesRead == sizeof(T))
+        if (ReadProcessMemory(process_handle, reinterpret_cast<LPCVOID>(address), &buffer, sizeof(T), &bytes_read) && bytes_read == sizeof(T))
         {
             return buffer;
         }
@@ -23,10 +23,10 @@ namespace commons::mem
     }
 
     template <typename T>
-    bool write(const HANDLE& processHandle, const uintptr_t& address, const T& data)
+    bool write(const HANDLE& process_handle, const uintptr_t& address, const T& data)
     {
-        SIZE_T bytesWritten;
-        if (WriteProcessMemory(processHandle, reinterpret_cast<LPVOID>(address), &data, sizeof(T), &bytesWritten) && bytesWritten == sizeof(T))
+        SIZE_T bytes_written;
+        if (WriteProcessMemory(process_handle, reinterpret_cast<LPVOID>(address), &data, sizeof(T), &bytes_written) && bytes_written == sizeof(T))
         {
             return true;
         }

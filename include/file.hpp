@@ -8,19 +8,19 @@
 
 namespace commons::file
 {
-    inline std::optional<std::vector<char>> ReadFile(const std::filesystem::path& fullFilePath)
+    inline std::optional<std::vector<char>> read_file(const std::filesystem::path& full_file_path)
     {
-        if (!exists(fullFilePath))
+        if (!exists(full_file_path))
         {
-            std::wcerr << XORW(L"Cannot open file: ") << fullFilePath << '\n';
+            std::wcerr << XORW(L"Cannot open file: ") << full_file_path << '\n';
             return std::nullopt;
         }
 
-        std::ifstream file(fullFilePath, std::ios::binary | std::ios::ate);
+        std::ifstream file(full_file_path, std::ios::binary | std::ios::ate);
 
         if (!file)
         {
-            std::wcerr << XORW(L"Failed to open file: ") << fullFilePath << '\n';
+            std::wcerr << XORW(L"Failed to open file: ") << full_file_path << '\n';
             return std::nullopt;
         }
 
