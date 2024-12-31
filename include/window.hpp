@@ -49,9 +49,14 @@ namespace commons::window
         return focused_window_title.value() == window_name;
     }
 
+    inline HWND get_window_handle(const std::wstring& window_name)
+    {
+        return FindWindow(nullptr, window_name.c_str());
+    }
+
     inline bool is_window_running(const std::wstring& window_name)
     {
-        return FindWindow(nullptr, window_name.c_str()) != nullptr;
+        return get_window_handle(window_name) != nullptr;
     }
 
     //TODO why ::max() not working??
@@ -82,4 +87,6 @@ namespace commons::window
         std::wcout << XORW(L"Timeout reached; window '") << window_name << XORW(L"' was not found.\n");
         return false;
     }
+
+
 }

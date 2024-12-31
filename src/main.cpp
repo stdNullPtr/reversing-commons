@@ -24,8 +24,11 @@ int main()
     if (focused_window.has_value())
     {
         const auto is_window_in_focus{window::is_window_in_focus(focused_window.value())};
-        std::wcout << XORW(L"window::isWindowInFocus(focusedWindow.value()): ") << (is_window_in_focus? XORW(L"yes"): XORW(L"no"));
+        std::wcout << XORW(L"window::isWindowInFocus(focusedWindow.value()): ") << (is_window_in_focus ? XORW(L"yes") : XORW(L"no"));
     }
+
+    const HWND notepad_window_handle{window::get_window_handle(L"Untitled - Notepad")};
+    logger::log(L"Notepad Handle: 0x%llX\n", notepad_window_handle);
 
     std::wcout << XORW(L"\n=== END ===\n");
     std::wcout << XORW(L"\n=== КРАЙ ===\n");
